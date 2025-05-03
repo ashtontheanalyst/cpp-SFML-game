@@ -1,0 +1,18 @@
+Running this command to compile each time is a lot:
+
+g++ test.cpp -o prog -lsfml-graphics -lsfml-window -lsfml-system
+
+
+So instead, in the .bashrc file I wrote this function:
+
+bsfml() {
+    if [ $# -lt 2 ]; then
+        echo "Usage: bsf <fileName.cpp> <outputName>"
+        return 1
+    fi
+    g++ "$1" -o "$2" -lsfml-graphics -lsfml-window -lsfml-system
+}
+
+Therefore now you can just compile with all those library packages like this:
+
+bsfml test.cpp prog
