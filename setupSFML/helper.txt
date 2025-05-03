@@ -1,18 +1,22 @@
 Running this command to compile each time is a lot:
 
-g++ test.cpp -o prog -lsfml-graphics -lsfml-window -lsfml-system
+g++ test.cpp something.h helper.cpp -o prog -lsfml-graphics -lsfml-window -lsfml-system
 
 
 So instead, in the .bashrc file I wrote this function:
 
 bsfml() {
     if [ $# -lt 2 ]; then
-        echo "Usage: bsf <fileName.cpp> <outputName>"
+        echo "Usage: bsf <source1.cpp [source2.cpp ...]> <outputName>"
         return 1
     fi
-    g++ "$1" -o "$2" -lsfml-graphics -lsfml-window -lsfml-system
+
+    output="${@: -1}"       # Last argument is the output name
+    sources=("${@:1:$#-1}") # All but the last are source files
+
+    g++ "${sources[@]}" -o "$output" -lsfml-graphics -lsfml-window -lsfml-system
 }
 
 Therefore now you can just compile with all those library packages like this:
 
-bsfml test.cpp prog
+bsfml test.cpp helper.h prog

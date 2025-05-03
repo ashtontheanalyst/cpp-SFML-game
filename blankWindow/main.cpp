@@ -51,3 +51,13 @@ int main() {
     // End of game
     return 0;
 }
+
+/*
+Chat GPT Explanation of what's going on:
+This program creates a 640×480 SFML window titled "My First Blank Window" that cannot be resized. 
+It enters a continuous game loop where it checks for user input, specifically looking for either 
+the window’s close button or the Escape key to exit. Inside the loop, the screen is cleared and 
+filled with a green background every frame, simulating the basic structure of a real-time application 
+like a game. Although nothing is drawn yet, this sets up the essential flow for handling events, 
+updating game state, and rendering graphics.
+*/
