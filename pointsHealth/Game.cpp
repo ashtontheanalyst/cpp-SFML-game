@@ -9,10 +9,12 @@ void Game::initVariables() {
     this->window = nullptr;
 
     // Game logic
+    this->endGame = false;
     this->points = 0;
-    this->enemySpawnTimerMax = 10.f; // Making this smaller means enemies spawn faster, larger number is the opp.
+    this->health = 100; // max starting health
+    this->enemySpawnTimerMax = 30.f; // Making this smaller means enemies spawn faster, larger number is the opp.
     this->enemySpawnTimer = this->enemySpawnTimerMax; // timer starts at its max value
-    this->maxEnemies = 30;
+    this->maxEnemies = 40;
     this->mouseHeld = false; // not currently holding down on the mouse, looking for indiv. clicks
 }
 
@@ -65,6 +67,11 @@ Game::~Game() {
 // Accessor, main.cpp is asking if the window is still open or not
 const bool Game::running() const {
     return this->window->isOpen();
+}
+
+
+const bool Game::getEndGame() const {
+    return this-> endGame;
 }
 
 
@@ -130,6 +137,10 @@ void Game::updateEnemies() {
         // if the top pixel of the enemy falls below the screen, delete
         if (this->enemies[i].getPosition().y > this->window->getSize().y) {
             this->enemies.erase(this->enemies.begin() + i); // delete the enemy at it's potion in the vector
+            this->health -= 10; // every time you miss an enemy subtract 10 from the max health of 100
+            
+            // Debug to see health in terminal for now
+            std::cout << "Health: " << this->health << '\n';
         }
     }
 
@@ -150,7 +161,7 @@ void Game::updateEnemies() {
                     deleted = true;
                     this->enemies.erase(this->enemies.begin() + i);
 
-                    this->points += 10.f; // 10 points per enemy
+                    this->points += 10; // 10 points per enemy
                 }
             }
         }
@@ -164,8 +175,16 @@ void Game::updateEnemies() {
 // Updates the game logic every frame. Could be player movement, an attack, screen explosion, etc.
 void Game::update() {
     this->pollEvents(); // looking for inputs
-    this->updateMousePositions(); // capture mouse movement data
-    this->updateEnemies(); // get enemy positions and backend
+    
+    // run the game until it sees an end, triggers it to true
+    if (this->endGame == false) {
+        this->updateMousePositions(); // capture mouse movement data
+        this->updateEnemies(); // get enemy positions and backend
+    }
+
+    if (this->health < 0) {
+        this->endGame = true; // end the game if we run out of health, stops updating the game
+    }
 }
 
 

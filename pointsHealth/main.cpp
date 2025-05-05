@@ -10,8 +10,8 @@ int main() {
     // Create a game object using the Game class
     Game game;
     
-    // Game loop, run the game while the window is open
-    while(game.running()) {
+    // Game loop, run the game while the window is open and we haven't died
+    while(game.running() && game.getEndGame() == false) {
         // Update, process any input
         game.update();
 

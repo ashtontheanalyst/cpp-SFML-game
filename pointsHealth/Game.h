@@ -34,7 +34,9 @@ class Game {
         sf::Vector2f mousePosView; // this is our game window
 
         // Game Logic
+        bool endGame;
         unsigned points; // unsigned are positive values only, we don't want negative points for this game
+        int health;
         float enemySpawnTimer;
         float enemySpawnTimerMax;
         int maxEnemies; // max amount on screen at one time
@@ -55,6 +57,7 @@ class Game {
 
         // Accessors, just checking stuff not modifying anything
         const bool running() const;
+        const bool getEndGame() const;
 
         // Functions
         void spawnEnemy();
