@@ -16,6 +16,7 @@ it should have the main.cpp, Game.cpp, and Game.h files which when compiled will
 To compile on your own, you will need to have all necessary sfml libraries downloaded and C++.
 The output file 'game' is a precompiled file that should be executable. The only other file
 is a .ttf which is a font file for in game text.
+   - See setup folder for how to get SFML working!
 
 
 FILES IN DEPTH:
